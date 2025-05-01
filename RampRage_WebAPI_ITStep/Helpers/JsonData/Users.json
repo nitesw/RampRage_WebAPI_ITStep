@@ -1,0 +1,23 @@
+﻿[
+  {
+    "UserName": "admin",
+    "Email": "admin@example.com",
+    "ImageUrl": "https://t3.ftcdn.net/jpg/00/65/75/68/360_F_65756860_GUZwzOKNMUU3HldFoIA44qss7ZIrCG8I.jpg",
+    "Role": "Admin",
+    "Password": "Qwerty1-"
+  },
+  {
+    "UserName": "user_1",
+    "Email": "user_1@example.com",
+    "ImageUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2fc56934073232.56c33cf863075.jpg",
+    "Role": "Admin",
+    "Password": "Qwerty1-"
+  },
+  {
+    "UserName": "user_2",
+    "Email": "user_2@example.com",
+    "ImageUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7ed9ad34073232.56c33cf861f3c.jpg",
+    "Role": "User",
+    "Password": "123456"
+  }
+]

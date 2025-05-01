@@ -1,0 +1,6 @@
+@RampRage_WebAPI_ITStep_HostAddress = http://localhost:5124
+
+GET {{RampRage_WebAPI_ITStep_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
