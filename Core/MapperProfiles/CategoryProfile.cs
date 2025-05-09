@@ -13,7 +13,7 @@ namespace Core.MapperProfiles
     {
         public CategoryProfile()
         {
-            CreateMap<CategoryEntity, CategoryDto>();
+            CreateMap<CategoryEntity, CategoryDto>().ReverseMap();
             CreateMap<CategoryCreateDto, CategoryEntity>()
                 .ForMember(opt => opt.ImageUrl, x => x.Ignore());
             CreateMap<CategoryEditDto, CategoryEntity>()

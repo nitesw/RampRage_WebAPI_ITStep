@@ -1,20 +1,26 @@
 ﻿[
   {
     "Name": "Decks",
-    "ImageUrl": "https://artwareeditions.com/cdn/shop/products/Crush_2021_3.jpg?v=1668488678",
+    "ImageUrl": "https://www.slayer.net/cdn/shop/files/SLAYER_DECK_3_7761e895-1b60-465c-a8e1-ca1f3260a60e.png?v=1732302966&width=990",
     "Description": "Explore our curated collection of artist-designed skateboard decks that blend contemporary art with urban culture. These limited-edition pieces are crafted for display or performance, making them perfect for collectors, skaters, and design enthusiasts alike.",
     "UserId": 1
   },
   {
     "Name": "Trucks",
-    "ImageUrl": "https://boardshop.ua/image/cache/catalog/trs/16276-1000x1000.jpeg",
+    "ImageUrl": "https://www.crailstore.co.uk/cdn/shop/files/Royal_Inverted_1528c75e-510a-4343-ba50-c8afc5743a26.png?v=1737039509",
     "Description": "Browse our selection of premium skateboard trucks, engineered for durability, precision, and smooth turning. Whether you're into street or park skating, find the perfect setup to match your style and performance needs.",
     "UserId": 2
   },
   {
     "Name": "Wheels",
-    "ImageUrl": "https://shstore.eu/hpeciai/d7ff7bc4ef69f43a24dd0455ae22b2ab/eng_pl_Spitfire-Wheels-80HD-Fade-Orange-Conical-Full-13619_6.webp",
+    "ImageUrl": "https://www.coastskate.com.au/cdn/shop/products/typwhe.sb.58.png?v=1637026563",
     "Description": "From smooth cruising to technical tricks, our high-performance skateboard wheels deliver grip, speed, and control. Available in a range of sizes and durometers for every terrain and skating preference.",
+    "UserId": 1
+  },
+  {
+    "Name": "Bearings",
+    "ImageUrl": "https://www.cueiwheels.com/wp-content/uploads/2021/03/classic-final-01.png",
+    "Description": "Our premium skateboard bearings are engineered for smooth rides, whether you're cruising down the street or pulling off technical tricks. Designed for speed, grip, and control, these bearings offer outstanding performance across various terrains. Available in multiple sizes and durometers, they cater to every skater's unique needs and riding style.",
     "UserId": 1
   }
 ]

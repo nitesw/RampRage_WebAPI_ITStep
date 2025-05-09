@@ -22,7 +22,7 @@ namespace Core.Services
         UserManager<UserEntity> userManager
         ) : ICategoryService
     {
-        public async Task Create(CategoryCreateDto dto, string userId)
+        public async Task<CategoryDto> Create(CategoryCreateDto dto, string userId)
         {
             var user = await userManager.FindByIdAsync(userId);
             if (user == null) throw new Exception("User not found");
@@ -31,8 +31,11 @@ namespace Core.Services
             category.ImageUrl = await imageService.SaveImageAsync(dto.Image);
             category.UserId = user.Id;
 
-            context.Categories.Add(category);
+            await context.Categories.AddAsync(category);
             await context.SaveChangesAsync();
+
+            var categoryDto = mapper.Map<CategoryDto>(category);
+            return categoryDto;
         }
 
         public async Task Delete(int id)

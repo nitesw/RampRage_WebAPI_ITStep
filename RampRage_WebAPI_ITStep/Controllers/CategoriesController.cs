@@ -28,8 +28,8 @@ namespace RampRage_WebAPI_ITStep.Controllers
             try
             {
                 string userId = User?.FindFirst("id")?.Value!;
-                await categoryService.Create(dto, userId);
-                return Ok();    
+                var category = await categoryService.Create(dto, userId);
+                return Ok(category);    
             }
             catch (Exception ex)
             {
