@@ -1,7 +1,9 @@
-﻿using Core.Interfaces;
+﻿using Core.Dtos.Category;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace RampRage_WebAPI_ITStep.Controllers
 {
@@ -18,6 +20,49 @@ namespace RampRage_WebAPI_ITStep.Controllers
             var categories = await categoryService.GetAll();
 
             return Ok(categories);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm] CategoryCreateDto dto)
+        {
+            try
+            {
+                string userId = User?.FindFirst("id")?.Value!;
+                await categoryService.Create(dto, userId);
+                return Ok();    
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromForm] CategoryEditDto dto)
+        {
+            try
+            {
+                await categoryService.Edit(dto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await categoryService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }

@@ -3,18 +3,18 @@
     "Name": "Decks",
     "ImageUrl": "https://artwareeditions.com/cdn/shop/products/Crush_2021_3.jpg?v=1668488678",
     "Description": "Explore our curated collection of artist-designed skateboard decks that blend contemporary art with urban culture. These limited-edition pieces are crafted for display or performance, making them perfect for collectors, skaters, and design enthusiasts alike.",
-    "UserId": 13
+    "UserId": 1
   },
   {
     "Name": "Trucks",
     "ImageUrl": "https://boardshop.ua/image/cache/catalog/trs/16276-1000x1000.jpeg",
     "Description": "Browse our selection of premium skateboard trucks, engineered for durability, precision, and smooth turning. Whether you're into street or park skating, find the perfect setup to match your style and performance needs.",
-    "UserId": 14
+    "UserId": 2
   },
   {
     "Name": "Wheels",
     "ImageUrl": "https://shstore.eu/hpeciai/d7ff7bc4ef69f43a24dd0455ae22b2ab/eng_pl_Spitfire-Wheels-80HD-Fade-Orange-Conical-Full-13619_6.webp",
     "Description": "From smooth cruising to technical tricks, our high-performance skateboard wheels deliver grip, speed, and control. Available in a range of sizes and durometers for every terrain and skating preference.",
-    "UserId": 13
+    "UserId": 1
   }
 ]
