@@ -1,6 +1,8 @@
 ﻿using Core.Interfaces;
 using Data.Constants;
 using Data.Data;
+using Data.Data.Seeders;
+using Data.Entities;
 using Data.Entities.Identity;
 using Data.Models.Seeder;
 using Microsoft.AspNetCore.Identity;
@@ -54,6 +56,39 @@ namespace RampRage_WebAPI_ITStep.Extensions
                             else Console.WriteLine($"--Error create user {user.Email}--");
                         }
 
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"--Error parse json--{ex.Message}");
+                    }
+                }
+                else Console.WriteLine($"--Error open file {jsonFile}--");
+            }
+
+            if (!context.Categories.Any())
+            {
+                var imageService = scope.ServiceProvider.GetRequiredService<IImageService>();
+                var jsonFile = Path.Combine(Directory.GetCurrentDirectory(), "Helpers", "JsonData", "Categories.json");
+                if (File.Exists(jsonFile))
+                {
+                    var jsonData = File.ReadAllText(jsonFile, Encoding.UTF8);
+                    try
+                    {
+                        var categories = JsonConvert.DeserializeObject<List<CategorySeederModel>>(jsonData)
+                            ?? throw new JsonException();
+                        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UserEntity>>();
+                        foreach (var category in categories)
+                        {
+                            var newCategory = new CategoryEntity
+                            {
+                                Name = category.Name,
+                                Description = category.Description,
+                                UserId = category.UserId,
+                                ImageUrl = await imageService.SaveImageFromUrlAsync(category.ImageUrl!)
+                            };
+                            context.Categories.Add(newCategory);
+                            context.SaveChanges();
+                        }
                     }
                     catch (Exception ex)
                     {

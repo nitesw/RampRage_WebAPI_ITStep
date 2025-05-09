@@ -5,10 +5,14 @@ using Core.Services;
 using Data;
 using Data.Data;
 using Data.Entities.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using RampRage_WebAPI_ITStep.Extensions;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RampRage_WebAPI_ITStep
@@ -33,12 +37,64 @@ namespace RampRage_WebAPI_ITStep
                 options.Password.RequireLowercase = false;
             }).AddEntityFrameworkStores<RampRageDbContext>().AddDefaultTokenProviders();
 
+            var singinKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    builder.Configuration["JwtSecretKey"]
+                        ?? throw new NullReferenceException("JwtSecretKey")
+                )
+            );
+            builder.Services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        IssuerSigningKey = singinKey,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
             builder.Services.AddCustomServices();
             builder.Services.AddAutoMapper();
 
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(
+                    "Bearer",
+                    new OpenApiSecurityScheme
+                    {
+                        Description = "Jwt Auth header using the Bearer scheme",
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer"
+                    }
+                );
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                     {
+                         new OpenApiSecurityScheme {
+                             Reference = new OpenApiReference {
+                                 Id = "Bearer",
+                                 Type = ReferenceType.SecurityScheme
+                             }
+                         },
+                         new List<string>()
+                     }
+                });
+            });
 
             var app = builder.Build();
 
@@ -65,6 +121,7 @@ namespace RampRage_WebAPI_ITStep
 
             app.UseCors("front-end-cors-policy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

@@ -17,6 +17,7 @@ namespace Core
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
         public static void AddAutoMapper(this IServiceCollection services)
         {

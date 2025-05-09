@@ -13,5 +13,6 @@ namespace Data.Entities.Identity
         [StringLength(255)]
         public string? ImageUrl { get; set; }
         public virtual ICollection<UserRoleEntity>? UserRoles { get; set; }
+        public virtual ICollection<CategoryEntity>? Categories { get; set; }
     }
 }

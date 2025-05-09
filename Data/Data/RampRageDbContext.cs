@@ -1,4 +1,5 @@
-﻿using Data.Entities.Identity;
+﻿using Data.Entities;
+using Data.Entities.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,8 @@ namespace Data.Data
     {
         public RampRageDbContext() { }
         public RampRageDbContext(DbContextOptions<RampRageDbContext> options) : base(options) { }
+
+        public DbSet<CategoryEntity> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
