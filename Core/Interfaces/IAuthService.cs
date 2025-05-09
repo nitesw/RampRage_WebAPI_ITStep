@@ -9,7 +9,7 @@ namespace Core.Interfaces
 {
     public interface IAuthService
     {
-        Task<bool> Register(UserRegisterDto dto);
+        Task<string> Register(UserRegisterDto dto);
         Task<string> Login(UserAuthDto dto);
     }
 }

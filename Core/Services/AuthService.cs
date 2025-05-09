@@ -20,7 +20,7 @@ namespace Core.Services
         private readonly IImageService imageService = imageService;
         private readonly IJwtService jwtService = jwtService;
 
-        public async Task<bool> Register(UserRegisterDto dto)
+        public async Task<string> Register(UserRegisterDto dto)
         {
             var isExistsByEmail = await userManager.FindByEmailAsync(dto.Email);
             if (isExistsByEmail != null)
@@ -31,9 +31,14 @@ namespace Core.Services
                 throw new Exception($"Username {dto.UserName} is already in use.");
 
             var entity = mapper.Map<UserEntity>(dto);
-            entity.ImageUrl = await imageService.SaveImageFromUrlAsync(
+            if(dto.Image == null)
+            {
+                entity.ImageUrl = await imageService.SaveImageFromUrlAsync(
                 "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg"
-            );
+                );
+            }
+            else
+                entity.ImageUrl = await imageService.SaveImageAsync(dto.Image);
 
             var result = await userManager.CreateAsync(entity, dto.Password);
             if (!result.Succeeded)
@@ -43,7 +48,8 @@ namespace Core.Services
             }
 
             await userManager.AddToRoleAsync(entity, Roles.User);
-            return true;
+            var token = await jwtService.CreateTokenAsync(entity);
+            return token;
         }
 
         public async Task<string> Login(UserAuthDto dto)

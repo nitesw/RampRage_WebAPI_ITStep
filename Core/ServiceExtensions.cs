@@ -20,7 +20,7 @@ namespace Core
         }
         public static void AddAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(UserProfile));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
     }
 }

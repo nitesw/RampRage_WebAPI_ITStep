@@ -7,6 +7,7 @@ using Data.Data;
 using Data.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using RampRage_WebAPI_ITStep.Extensions;
 using System.Threading.Tasks;
 
@@ -46,6 +47,16 @@ namespace RampRage_WebAPI_ITStep
             //{
             //    app.MapOpenApi();
             //}
+
+            var imagesFolder = builder.Configuration.GetValue<string>("ImagesDir") ?? "";
+            var saveDir = Path.Combine(builder.Environment.ContentRootPath, imagesFolder);
+            Directory.CreateDirectory(saveDir);
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(saveDir),
+                RequestPath = $"/{imagesFolder}"
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RampRage API v1"));

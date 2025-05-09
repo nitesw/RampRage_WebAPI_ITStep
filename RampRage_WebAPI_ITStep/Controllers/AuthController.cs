@@ -8,25 +8,25 @@ using System.Text.RegularExpressions;
 
 namespace RampRage_WebAPI_ITStep.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController(IAuthService authService) : ControllerBase
     {
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserRegisterDto dto)
+        [HttpPost]
+        public async Task<IActionResult> Register([FromForm] UserRegisterDto dto)
         {
             try
             {
-                await authService.Register(dto);
-                return Ok(new { success = true, message = "Registration successful" });
+                var token = await authService.Register(dto);
+                return Ok(new { token });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { success = false, message = ex.Message });
+                return BadRequest(new { error = ex.Message });
             }
         }
 
-        [HttpPost("login")]
+        [HttpPost]
         public async Task<IActionResult> Login([FromBody] UserAuthDto dto)
         {
             try
